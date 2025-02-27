@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szyfr Cezara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Szyfr Cezara</h2>
+    <input type="text" id="text" placeholder="Wpisz tekst" size="30">
+    <input type="number" id="shift" placeholder="Przesunięcie" min="1" max="25">
+    <button onclick="encrypt()">Szyfruj</button>
+    <h3>Wynik: <span id="result"></span></h3>
+
+    <script>
+        function encrypt() {
+            let text = document.getElementById("text").value;
+            let shift = parseInt(document.getElementById("shift").value);
+            let result = "";
+
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                if (char.match(/[a-z]/i)) {
+                    let code = text.charCodeAt(i);
+                    let offset = char === char.toUpperCase() ? 65 : 97;
+                    result += String.fromCharCode(((code - offset + shift) % 26) + offset);
+                } else {
+                    result += char;
+                }
+            }
+
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+
+</body>
+</html>
