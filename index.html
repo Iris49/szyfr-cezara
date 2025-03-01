@@ -18,23 +18,62 @@
         }
         h1 {
             color: #333;
-            font-size: 6em; /* Ogromna czcionka */
+            font-size: 6em;
             font-weight: bold;
             margin-bottom: 30px;
         }
-        .images img {
-            max-width: 80%; /* Dopasowanie zdjęć do szerokości ekranu */
+        .static-image img {
+            width: 300px;
             height: auto;
-            margin: 10px;
             border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .images {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        .images img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .images img.active {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <h1>Słodzina to jebany gruby kundel</h1>
-    <div class="images">
-        <!-- Poprawiony link do obrazu -->
-        <img src="https://raw.githubusercontent.com/Iris49/szyfr-cezara/main/slodzinak.jpg" alt="slodzina 1">
+    <h1>Słodzina</h1>
+
+    <!-- Statyczne zdjęcie -->
+    <div class="static-image">
+        <img src="slodzinak.jpg" alt="Słodzina">
     </div>
+
+    <!-- Obracające się zdjęcia -->
+    <div class="images">
+        <img src="slodzinak1.jpg" class="active" alt="Słodzina 1">
+        <img src="slodzinak2.jpg" alt="Słodzina 2">
+        <img src="slodzinak3.jpg" alt="Słodzina 3">
+    </div>
+    
+    <script>
+        const images = document.querySelectorAll('.images img');
+        let index = 0;
+
+        function changeImage() {
+            images[index].classList.remove('active');
+            index = (index + 1) % images.length;
+            images[index].classList.add('active');
+        }
+
+        setInterval(changeImage, 3000); // Zmiana obrazu co 3 sekundy
+    </script>
 </body>
 </html>
+
